@@ -3,12 +3,12 @@ layout: default
 ---
 
 <ul class="entries">
-  {% for page in user %}
+  {% for doc in site.user %}
 
   <li>
-    <a href="{{ page.url }}">
-      <img src="{{ page.image }}" />
-      <h3>{{ page.title }}</h3>
+    <a href="{{ doc.url }}">
+      <img src="{{ doc.image }}" />
+      <h3>{{ doc.title }}</h3>
     </a>
   </li>
 
