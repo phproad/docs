@@ -1,0 +1,11 @@
+---
+layout: default
+title: Overview
+---
+<p>Themes in PHPR are not like your average <em>theme</em>, instead they should be considered as the driving force behind the front end. This is because they not only control the site styles but they completely define the site's appearance and functionality -- content, pages, partials, content blocks and assets. Every site must have at least one theme to operate.</p>
+<p>You can manage themes by selecting <em>Website &gt; Themes</em> via the Admin area. You can create an unlimited amount of themes for a single installation. Themes can be enabled manually or automatically, depending on the visitors device type (user agent) or website address. In the Admin area you can choose which theme is default and which theme you are editing when managing the Website menu options.</p>
+<h2>Default theme</h2>
+<p>The default theme which is applied to the site by default. This theme is chosen when no other theme has been automatically assigned. Most of the time the default theme will be used unless you have set up custom configuration. You can se the default theme by opening the <em>Website &gt; Themes</em> page and clicking the <em>Set default theme </em>button.</p>
+<h2>Editing theme</h2>
+<p>On any Website menu option you can choose which theme you want to edit. All content shares the same theme, whereas pages, templates and partials can be individually customised by clicking the <em>Now Editing</em> button.</p>
+

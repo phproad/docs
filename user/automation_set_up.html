@@ -1,0 +1,22 @@
+---
+layout: default
+title: Overview
+---
+	<p>Some features of your script require a cron job to be set up. Most automated features are linked to the cron table, such as:</p>
+<ul>
+<li>Requests expiring</li>
+<li>Subscription renewals</li>
+<li>Deferred processing</li>
+<li>Internal maintenance house keeping tasks</li>
+</ul>
+<h2>Set up using cPanel</h2>
+<p>Click the <em>Cron Jobs</em> link under your cPanel account and choose <em>Advanced (Linux Style)</em>. Enter your email address for collecting information about cron execution. Copy the command to be run as cron:</p>
+<pre class="brush:php">/usr/local/bin/php -q /home/YOUR_USERNAME/public_html/cron.php</pre><p>Replace <em>YOUR_USERNAME</em> with your cPanel username then schedule the time for this job to execute every 5 minutes.</p>
+<p>Apply the changes and click Back to return to the Cron Management page</p>
+<h2>Set up using Shell</h2>
+<p>Run the following command</p>
+<p><strong>crontab -e</strong></p>
+<p>This will open your default text editor, where you will have to insert the following lines of code to be executed:</p>
+<pre class="brush:php">MAILTO=myemail@mysite.com
+*/5 * * * * /usr/local/bin/php -q /home/YOUR_USERNAME/public_html/cron.php</pre><p>Save the file and exit the editor.</p>
+

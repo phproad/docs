@@ -1,0 +1,25 @@
+---
+layout: default
+title: Overview
+---
+	<h2>Troubleshoot Server 500 Error</h2>
+<p>On some hosting environments you can face the Internal Error 500 after installation. There could be different reasons of this issue but all of them are caused the non-conformity between the hosting settings and PHPR requirements.</p>
+<p>Here are some hints which can help you in troubleshooting the error 500:</p>
+<ul>
+<li>Check whether the mod_rewrite Apache module is enabled on your hosting server. Usually the module is enabled on all modern paid hosting servers.</li>
+</ul>
+<ul>
+<li>Check whether the AllowOverride All option is enabled in the httpd.conf file for the script directory. Usually the option is enabled on CPanel-based hostings for all directories.</li>
+</ul>
+<ul>
+<li>Try to comment the following line in the .htaccess file in the script root directory:<br /><pre class="brush:php"># RewriteBase /</pre><br />If this will not help, please uncomment the line again.</li>
+</ul>
+<ul>
+<li>Look into the Apache error log. If you use a CPanel-based hosting, you can access the error log via the CPanel Logs/Error Log page. Find errors which refer to the script installation directory. They can help you to find the problem.</li>
+</ul>
+<ul>
+<li>If the error log contains the following message &ldquo;SoftException in Application.cpp:252: File&rdquo;your_ozlancer_dir/index.php" is writeable by group", change permissions on the index.php file to 755. Also please change the FILE_PERMISSIONS parameter value in the config.php file to 0755:<br /><pre class="brush:php">$config['file_permissions'] = 0755;</pre></li>
+</ul>
+<ul>
+<li>If nothing helps, contact our support team. Try the Support Forum and report the Apache error messages if it is possible.</li>
+</ul>
