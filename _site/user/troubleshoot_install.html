@@ -213,6 +213,11 @@
     <script type="text/javascript" src="http://garbee.github.io/phpr-docs-temp/assets/scripts/treeview.js"></script>
     <script>
       $(document).foundationTabs();
+      $("#docs-sidenav").treeview({
+        persist: "location",
+        collapsed: true,
+        unique: true
+    });
     </script>
   </body>
 </html>

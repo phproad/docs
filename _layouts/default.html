@@ -66,6 +66,11 @@
     <script type="text/javascript" src="{{site.jsurl}}treeview.js"></script>
     <script>
       $(document).foundationTabs();
+      $("#docs-sidenav").treeview({
+        persist: "location",
+        collapsed: true,
+        unique: true
+    });
     </script>
   </body>
 </html>
