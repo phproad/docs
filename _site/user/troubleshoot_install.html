@@ -3,7 +3,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title> Documentation contributions |  PHPR Community Docs</title>
+    <title> Overview |  PHPR Community Docs</title>
     <link rel="stylesheet" type="text/css" href="http://garbee.github.io/phpr-docs-temp/assets/styles/phproad.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="http://garbee.github.io/phpr-docs-temp/assets/styles/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="http://garbee.github.io/phpr-docs-temp/assets/styles/treeview.css"/>
@@ -35,24 +35,27 @@
         <div class="page_content">
           <div id="page_documentation" class="wiki-default-content">
             <div class="wiki-content">
-              <h3>Documenting PHPRoad</h3>
-<p>
-	The documentation of PHPRoad is completely built by and for the community of users. It covers things from installing the system and getting oriented with the system all the way to developing for the system. You can be among this awesome group of writers! There are many ways of contributing to these docs, even if you don't actually write yourself. You may:
-	<ul>
-		<li>Critique the writing.</li>
-		<li>Find missing information</li>
-		<li>Find incorrect information</li>
-		<li>Write new documents</li>
-	</ul>
-</p>
-<h4>Categorization</h4>
-<p>
-	Our documents are broken into two main sections, user and developer docs. This allows us to talor the information being given to each type of reader. User docs cover using the system from a front-end view. Showing things such as how to install the system, update it, use the <abbr title="Content Management System">CMS</abbr> and user manager. While the developer docs cover actually programming for PHPRoad. They disclose how to build custom modules for clients, ones that allow them to update without fear of their site breaking.
-</p>
-<h5>Submitting</h5>
-<p>
-	Submitting any issues with the documentation can be done by submitting an issue or pull request on the docs repository. Please include where you see an issue and what you feel could make it better. The quickest way to get something updated, is to rewrite it and submit a pull request yourself. By doing so you save time for other writers and get the warm fuzzies of contributing. If you are unable to submit an issue on that repository, then you can contact others in the community and they can file it for you.
-</p>
+              	<h2>Troubleshoot Server 500 Error</h2>
+<p>On some hosting environments you can face the Internal Error 500 after installation. There could be different reasons of this issue but all of them are caused the non-conformity between the hosting settings and PHPR requirements.</p>
+<p>Here are some hints which can help you in troubleshooting the error 500:</p>
+<ul>
+<li>Check whether the mod_rewrite Apache module is enabled on your hosting server. Usually the module is enabled on all modern paid hosting servers.</li>
+</ul>
+<ul>
+<li>Check whether the AllowOverride All option is enabled in the httpd.conf file for the script directory. Usually the option is enabled on CPanel-based hostings for all directories.</li>
+</ul>
+<ul>
+<li>Try to comment the following line in the .htaccess file in the script root directory:<br /><pre class="brush:php"># RewriteBase /</pre><br />If this will not help, please uncomment the line again.</li>
+</ul>
+<ul>
+<li>Look into the Apache error log. If you use a CPanel-based hosting, you can access the error log via the CPanel Logs/Error Log page. Find errors which refer to the script installation directory. They can help you to find the problem.</li>
+</ul>
+<ul>
+<li>If the error log contains the following message &ldquo;SoftException in Application.cpp:252: File&rdquo;your_ozlancer_dir/index.php" is writeable by group", change permissions on the index.php file to 755. Also please change the FILE_PERMISSIONS parameter value in the config.php file to 0755:<br /><pre class="brush:php">$config['file_permissions'] = 0755;</pre></li>
+</ul>
+<ul>
+<li>If nothing helps, contact our support team. Try the Support Forum and report the Apache error messages if it is possible.</li>
+</ul>
 
             </div><!--/.wiki-content-->
           </div><!--/#page_documentation-->
