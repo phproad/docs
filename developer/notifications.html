@@ -1,0 +1,56 @@
+	<p>Notifications allow you to create generic notifications for your site. Some examples of this might be:</p>
+<ul>
+<li>Sending a Welcome Email to a User</li>
+<li>Broadcasting an SMS to all Admin users</li>
+</ul>
+<p>The code for notifications can be found in the <strong>Core_Notify</strong> and <strong>Core_Notify_Base</strong> classes, contained in the <strong>Core</strong> module.</p>
+<h3>Creating a Notification</h3>
+<p>Specific Notifications are stored in the <strong>notify_types</strong> folder <strong></strong>within any module. The class name must start with the module name (eg: user_) and must end with <strong>_notify</strong>. For example, a notification with the code <em>password_reset</em> would use a file named<strong> user_password_reset_notify.php</strong></p>
+<p>The class name must also match the file name, <strong>User_Password_Reset_Notify</strong>, and extend the <strong>Core_Notify_Base</strong> class.<strong><br /></strong></p>
+<p>In this example we will examine the Registration Confirmation email found in the standard <strong>User</strong> module. To create this notification, ensure the folder called <strong>notify_types</strong> exists inside the module. Then inside this folder, we will create a file named <strong>user_register_confirm_notify.php</strong>. Inside this file looks like this:</p>
+<pre class="brush:php">&lt;?php
+
+class User_Register_Confirm_Notify extends Core_Notify_Base
+{
+    public $required_params = array('user');
+
+    public function get_info()
+    {
+        return array(
+            'name'=&gt; 'User Registration Confirmation',
+            'description' =&gt; 'This message is sent to a user after successful registration.',
+            'code' =&gt; 'user:register_confirm'
+        );
+    }
+
+    public function get_subject()
+    {
+        return 'Confirmation';
+    }
+
+    public function get_content()
+    {
+        return file_get_contents($this-&gt;get_partial_path('email_content.htm'));
+    }
+
+    public function on_send_email($template, $params=array())
+    {
+        extract($params);
+
+        $user-&gt;set_notify_vars($template, 'user_');
+        $template-&gt;set_vars(array());
+
+        $template-&gt;send($user-&gt;email, $template-&gt;content);
+    }
+}
+</pre><p>Important to note about this class:</p>
+<ul>
+<li>The public property <strong>$required_params</strong> declares what parameters are required, these will be passed in when the notification is triggered.</li>
+<li>The <strong>get_info()</strong> method returns information about the notification and must return an array containing the keys: name, description and code.</li>
+</ul>
+<p>The remaining methods are described in more detail later.</p>
+<h3>Triggering a Notification</h3>
+<p>When a notification is triggered, a message is created based on the supplied data and is then sent to the relevant users. Triggering a notification is designed to be very simple and can be achieved by calling a single line of code:</p>
+<p>Core_Notify::trigger('User_Register_Confirm_Notify', array('user'=&gt;$this));</p>
+<p>This example will use the class we defined above to send a welcome email to a user when they first sign up to the site.</p>
+<p>&nbsp;</p>
