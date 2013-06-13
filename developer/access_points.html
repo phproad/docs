@@ -1,3 +1,7 @@
+---
+layout: default
+title: Access Points
+---
 	<p>Module access points let you register a special URL which can be accessed from the public facing site. For example you might want a third party site to access data without needing a login to the Admin Area.</p>
 <p>To create a module access point, open your module info file (eg: <em>mymodule_module.php</em>) and define a method called <strong>subscribe_access_points()</strong>. The module info file is described in more detail in the article <a href="../creating_a_module/index.html">Creating a Module</a>. The <strong>subscribe_access_points()</strong> method must return an array with each index set to the URL you wish to create. Here is an example of how this might look:</p>
 <pre class="brush:php">public function subscribe_access_points()

@@ -1,3 +1,7 @@
+---
+layout: default
+title: Adding Menu Items
+---
 	<p>Modules are responsible for adding menu items to the administration area, this is achieved by overriding the method <strong>build_admin_menu()</strong> in the module information file <strong>mymodule_module.php</strong>.</p>
 <p>This method takes a parameter which is used to add to the menu collection:</p>
 <pre class="brush:php">public function build_admin_menu($menu) { }</pre><p>The first parameter in this method <strong>$menu</strong> is an object that represents the top level of the menu. You can&nbsp;<strong>add()</strong> new menu items to this top level which returns another object which represents the sub menu items. From here you can <strong>add_child()</strong> menu items to the sub menu.</p>

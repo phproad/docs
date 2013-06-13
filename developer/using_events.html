@@ -1,3 +1,7 @@
+---
+layout: default
+title: Events
+---
 	<p>Events allow you to override or extend the standard functionality of PHPR and other modules. This methodology is sometimes referred to as <em>Hooks and Triggers</em>. To use events you must start with a module, you can learn to create a module by reading the <a href="../creating_a_module/index.html">Creating a Module</a> article.</p>
 <h2>Subscribing to Events</h2>
 <p>Subscribing to an event, also known as <em>hooking on to an event</em>, allows you to inject code in to an exisiting workflow. For example, when a user is first registered you might want to add them to a 3rd party mailing list, this could be achieved by subscribing to the <strong>user:onUserCreated</strong> event. The definitions for event subscriptions are located in the module info class file using the <strong>subscribe_events()</strong> method.&nbsp; For example:</p>

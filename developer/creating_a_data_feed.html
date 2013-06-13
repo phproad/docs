@@ -1,3 +1,7 @@
+---
+layout: default
+title: Creating a data feed
+---
 	<p>A data feed allows you to combine multiple model classes into a single data collection. This is very useful for creating feeds and streams of data while also supporting the use of pagination. It works by adding model objects in a prepared state, before the <strong>find()</strong> or <strong>find_all()</strong> methods are called, which are then combined to make a collection that behaves as a single model. The Db_DataFeed class mimics the Db_ActiveRecord class and supports <strong>limit()</strong> and <strong>paginate()</strong>.</p>
 <p>A simple example of creating a feed is below:</p>
 <pre class="brush:php">$feed = Db_DataFeed::create();
