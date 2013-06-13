@@ -1,0 +1,54 @@
+<h3>Tab Indexes</h3>
+<p>Try to use <strong>tabindex</strong> property on your form inputs. This is for accessibility reasons.</p>
+<h3>Use onSubmit over onClick</h3>
+<p>Make <strong>&lt;form&gt;</strong> elements submittable, rather than using the JavaScript <strong>onClick</strong> button event, instead use <strong>onSubmit</strong> form event.</p>
+<p><em>Reason</em>: Quicker. Accessibility. onClick will only work for the element/s specified, but onSubmit will work for all submit-able elements.</p>
+<h3>Replace select options</h3>
+<p>Try not to replace <strong>&lt;select&gt;</strong> box via AJAX. Try to replace the <strong>&lt;option&gt;</strong> element instead. http://o7.no/oJBAFS</p>
+<p><em>Reason</em>: When you replace the select box, the selection of the <strong>&lt;select&gt;</strong> is lost, and it is not user friendly, primarily from an accessibility stand-point.</p>
+<h3>Don't reuse input names</h3>
+<p>Try not to use the same name attribute value for different forms that have different purposes.</p>
+<p><em>Reason</em>: Browsers will autofill the forms incorrectly, and cannot remember details for all separate areas. (They remember only the most recent for each name).</p>
+<h3>Use function_exists for helper functions</h3>
+<p>Try to use function_exists when defining functions in partials. http://o7.no/neQtD1</p>
+<p><em>Reason</em>: Incase someone tries to use a partial more than once, or else it throws redeclaration errors. It may also be beneficial to allow overloading the definition (a good example is WordPress pluggable functions).</p>
+<h3>Include CSS first and foremost</h3>
+<p>CSS should be included together into the page before JavaScript.</p>
+<p><em>Reason</em>: FOUC (Flash of Unstyled Content). Slower, see: Google Site Speed.</p>
+<h3>Use page specific CSS</h3>
+<p>Try to reference page-specific content via CSS. There is a helpful snippet for that here.</p>
+<p>Use this in your head partial:</p>
+<pre class="brush:php">&lt;?
+
+if (!isset($this-&gt;data['body_classes']))
+        $this-&gt;data['body_classes'] = array();
+
+$page_class = str_replace('/', '-', substr($this-&gt;page-&gt;url, 1));
+
+if (!$page_class)
+        $page_class = 'home';
+
+$this-&gt;data['body_classes'][] = $page_class;
+
+?&gt;</pre><p>It converts your page URL into a CSS reference-able token:</p>
+<ul>
+<li>/ =&gt; body.home</li>
+<li>/about =&gt; body.about</li>
+<li>/contact =&gt; body.contact</li>
+<li>/blog/post =&gt; body.blog-post</li>
+<li>/account/register =&gt; body.account-register</li>
+</ul>
+<p>Use this where your BODY tag is located, most of the time this will be in each template.</p>
+<pre class="brush:php">&lt;body class=&quot;&lt;?= implode(' ', $this-&gt;data['body_classes']) ?&gt;&quot;&gt;</pre><p>It can be extended in the Pre-Action Code on a per-page basis:</p>
+<pre class="brush:php">$this-&gt;data['body_classes'][] = 'test';</pre><p>Referenced in CSS:</p>
+<pre class="brush:html">body.home {
+	/* do something amazing */
+}</pre><p>Good examples are: carousels, portfolio sliders, checkout tables.</p>
+<p><em>Reason</em>: If you attempt to make a generic CSS set instead of using one-offs, you will often bite yourself in the butt with future attempts to alter it for X page, screwing up Y page.</p>
+<h3>Avoid too much logic within HTML</h3>
+<p>Try not to embed too much logic inside HTML elements. Bad: http://o7.no/A3SW9g Good: http://o7.no/wHD9J1</p>
+<p><em>Reason</em>: When other people or you in the future look at the code, it may not be clear what's going on. Using logic outside of the HTML element is easier to read at a glance. It's worth the extra lines.</p>
+<h3>Use empty javascript for links</h3>
+<p>Try to use javascript:; instead of # for JavaScript links. (Ideally you would have a non-JS associated page). So instead of this:</p>
+<pre class="brush:html">&lt;a href=&quot;#&quot;&gt;Create tag group&lt;/a&gt;</pre><p>Use this instead:</p>
+<pre class="brush:html">&lt;a href=&quot;javascript:;&quot;&gt;Create tag group&lt;/a&gt;</pre><p><em>Reason</em>: If an error occurs in your JavaScript when you click the link, and the propagated event is not stopped, you may be redirected to the root domain or your window scroll will go to the top of page. It makes debugging more difficult.</p>

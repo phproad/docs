@@ -1,0 +1,71 @@
+<p>The following article describes some programming rules to follow to when developing against PHPR.</p>
+<h3>PHP Closing Tag</h3>
+<p>The PHP closing tag on a PHP document ?&gt; is optional to the PHP parser. However, if used, any whitespace following the closing tag, whether introduced by the developer, user, or an FTP application, can cause unwanted output, PHP errors, or if the latter are suppressed, blank pages. For this reason, all PHP files should OMIT the closing PHP tag, and instead use a comment block to mark the end of file and it's location relative to the application root. This allows you to still identify a file as being complete and not truncated.</p>
+<h4>Incorrect</h4>
+<pre class="brush:php">&lt;?php
+// Code here
+?&gt;</pre><h4>Correct</h4>
+<pre class="brush:php">&lt;?php
+// Code here
+</pre><h3>Class Names</h3>
+<p>Class names should always be prefixed with their module name (if applicable) and start with an uppercase letter. Multiple words should be separated with an underscore and CamelCased. Model classes should be singular and classes should be plural. All curly brackets should appear on a new line unless empty.</p>
+<h4>Incorrect</h4>
+<pre class="brush:php">class blogpostmanager
+class BlogPostManager
+class blogPostManager
+class blog_post_manager</pre><h4>Correct</h4>
+<pre class="brush:php">class Blog_Post_Manager
+class Blog_Post
+class Blog_Posts
+
+class Blog_Post_Manager 
+{
+	function __construct() { }
+}
+
+class Blog_Post extends Db_ActiveRecord
+{
+	// Code here
+}
+
+class Blog_Posts extends Admin_Controller
+{
+	// Code here
+}</pre><h3>Method Names</h3>
+<p>All class methods should be entirely lowercased and named to clearly indicate their function, preferably including a verb. Try to avoid overly long and verbose names. All curly brackets should appear on a new line unless empty.</p>
+<h4>Incorrect</h4>
+<pre class="brush:php">// Not descriptive and missing underscore separator
+function blogdetails()
+
+// Not descriptive enough and uses CamelCase
+function blogdetails()
+
+// Better naming, still uses CamelCase
+function getBlogDetails()
+
+// Too descriptive
+function get_the_file_details_from_the_database()</pre><h4>Correct</h4>
+<pre class="brush:php">// Descriptive, uses underscore separator and all lower case
+function get_blog_details()
+{
+	
+}</pre><h3>Variable Names</h3>
+<p>The guidelines for variable naming is very similar to that used for class methods. Namely, variables should contain only lowercase letters, use underscore separators, and be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops.</p>
+<h4>Incorrect</h4>
+<pre class="brush:php">// Single letter variables should only be used in for() loops
+$s = 'text';
+
+// Contains uppercase letters
+$Str = 'text';
+
+// Uses CamelCase
+$blogPostDescriptionText = 'text';
+
+// Multiple words require an underscore separator
+$postDescription = 'text';
+
+// Too descriptive
+$comment_text_for_the_last_message = 'text';</pre><h4>Correct</h4>
+<pre class="brush:php">$str = 'text';
+$post_description = 'text';
+$last_message = 'text';</pre>

@@ -1,0 +1,35 @@
+<p>The following article describes some best practice design approaches you can use when developing against PHPR.</p>
+<h3>Modular Design and Reusability</h3>
+<p>When building new functionality, you should consider as many possible ways your functionality can be used, both at a high level and a low level. At a higher level, this may mean creating multiple modules that interact with eachother. At a lower level, this could mean creating reusable classes that might be useful again for other scenarios.</p>
+<p>The crux of modular design is a simple mantra: <em>Don't Repeat Yourself</em> (DRY).</p>
+<p>Some examples:</p>
+<ul>
+<li>If you were coding some logic that determines the Latitude and Longitude of a physical address, this might contain functionality that communicates with a third party geocoding provider, such as Google Maps. This logic would be best kept in it's own class with suitable naming, for example, <strong>Location_Geocoder</strong> and contain generic methods and properties that can stand alone.<br /><br /></li>
+<li>If you were writing an Ecommerce application, it might seem like a good idea to place everything inside a module named <strong>shop</strong>. However, it would be more <em>modular</em> to chunk this down in to all the components that an Ecommerce app might use, for example, a<strong> payment</strong> module for processing transactions, a <strong>catalogue</strong> module for handling product listings and categories, and perhaps a&nbsp;<strong>membership</strong> module for managing recurring payments. The distinction of each module is that they all contain functionality that would operate justifiably on their own.</li>
+</ul>
+<h3>Operating by Extension</h3>
+<p>There are two scenarios when extensibility is important, when you want to improve someone else's code and when somebody wants to improve yours. PHPR allows both of these cases to be satisfied by using Events, also known as <em>Hooks and Triggers</em>. You can read more about Events in the <a href="../using_events/index.html">Using Events</a> article.</p>
+<p>There is another time when you may need to radically change the behavior of a class. This would be a cumbersome process to use PHPR Events so you should use the standard PHP extension methodology. However, this has it's limitations because you can only use your new class in your own code, you do not have access to impact the code you are extending using this method.</p>
+<p>For example, if you wanted to completely <em>hi-jack</em> the Blog_Post model to include large amounts of your own logic but still keep the base intact, you could do it like this:</p>
+<pre class="brush:php">&lt;?php
+
+class MyModule_Post extends Blog_Post
+{
+    public $table_name = &quot;blog_posts&quot;;
+
+    public function __construct($values = null, $options = array())
+    {        
+        parent::__construct($values, $options);
+    }
+
+    public static function create() { return new self(); }
+}</pre><h3>Building Page Actions</h3>
+<p>It is important to recognise the purpose of PHPR Page Actions, they are simply an interface for the front-end page to communicate with the back-end logic. They should be used for:</p>
+<ul>
+<li>Processing and validating user inputted data</li>
+<li>Providing a response, usually by rendering a partial or redirecting to another page</li>
+</ul>
+<p>They should contain small amounts business logic only, when large amounts of business logic are needed, a Manager Class should be used (see below). A good indicator here is anything above 10 lines of business logic code should be moved in to it's own class.</p>
+<h3>Manager Classes</h3>
+<p>Every piece of software needs a place to store it's business logic. In most cases comfortable developers will place business logic where ever they happen to be at the time -- inside the model, a helper or an action class. A Manager Class should be used specifically for code that contains large amounts of business logic.</p>
+<p>&nbsp;</p>
