@@ -6,7 +6,6 @@
     <title>{% if page.title %} {{ page.title }} | {% endif %} PHPR Community Docs</title>
     <link rel="stylesheet" type="text/css" href="{{site.cssurl}}phproad.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{site.cssurl}}pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="{{site.cssurl}}treeview.css"/>
   </head>
   <body class="docs-template docs-page">
     <div class="container" id="mainnav">
@@ -63,14 +62,5 @@
     </div>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script type="text/javascript" src="{{site.jsurl}}jquery.foundation.tabs.js"></script>
-    <script type="text/javascript" src="{{site.jsurl}}treeview.js"></script>
-    <script>
-      $(document).foundationTabs();
-      $("#docs-sidenav").treeview({
-        persist: "location",
-        collapsed: true,
-        unique: true
-    });
-    </script>
   </body>
 </html>
