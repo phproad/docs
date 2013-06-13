@@ -1,0 +1,23 @@
+	<p>Events allow you to override or extend the standard functionality of PHPR and other modules. This methodology is sometimes referred to as <em>Hooks and Triggers</em>. To use events you must start with a module, you can learn to create a module by reading the <a href="../creating_a_module/index.html">Creating a Module</a> article.</p>
+<h2>Subscribing to Events</h2>
+<p>Subscribing to an event, also known as <em>hooking on to an event</em>, allows you to inject code in to an exisiting workflow. For example, when a user is first registered you might want to add them to a 3rd party mailing list, this could be achieved by subscribing to the <strong>user:onUserCreated</strong> event. The definitions for event subscriptions are located in the module info class file using the <strong>subscribe_events()</strong> method.&nbsp; For example:</p>
+<pre class="brush:php">public function subscribe_events()
+{
+	Phpr::$events-&gt;add_event('user:onUserCreated', $this, 'on_user_create');
+}</pre><p>This code subscribes to the user:onUserCreated event and when it is triggered the on_new_user handler method (specified in the third parameter) will be called. This handler method must be defined in the same class and it can be named anything. Below is an example of this:</p>
+<pre class="brush:php">public function on_user_create($user)
+{
+	// Code to register $user-&gt;email to mailing list
+}</pre><h2>Declaring Events</h2>
+<p>You can declare events, also known as <em>triggering an event</em>, anywhere in your code. Triggers are defined using the <strong>fire_event()</strong> method and can have unlimited parameters. Below is an example:</p>
+<pre class="brush:php">Phpr::$events-&gt;fire_event('mymodule:myCustomEvent', 'first parameter', 'second parameter', 'third parameter');</pre><p>Once this event has been subscribed to, the parameters are available in the handler method. For example:</p>
+<pre class="brush:php">public function subscribe_events()
+{
+	Phpr::$events-&gt;add_event('mymodule:myCustomEvent', $this, 'on_custom_event');
+}
+
+public function on_custom_event($param1, $param2, $param3)
+{	
+	// Parameters: first parameter second parameter third parameter
+	echo 'Parameters: '.$param1.' '.$param2.' '.$param3;
+}</pre>

@@ -1,0 +1,13 @@
+	<p>The Db_File class represents a link to the file system stored in the database. Usually you need to work with this class when you want to store files and images. The link created is maintained so if the object is deleted, the linked file is also deleted.</p>
+<p>Parent class: Db_ActiveRecord</p>
+<h2>Class fields</h2>
+<ul>
+<li>$name &ndash; a file name</li>
+<li>$size &ndash; size of a file, in bytes $description - a file description</li>
+</ul>
+<h2>Class methods</h2>
+<h3>$file-&gt;get_thumb_path($width, $height, $as_jpeg = true)</h3>
+<p>creates an image thumbnail and returns its relative URL. The $width and $height parameters could be either integer numbers or the &lsquo;auto&rsquo; word. If you specify an integer number for the width or height, the thumbnail will have the exact width or height value, in pixels. Use the &lsquo;auto&rsquo; word to scale an image dimension proportionally. For example, to generate a thumbnail with fixed width of 100 pixels and proportional height, use the following code:</p>
+<pre class="brush:php">$url = $file-&gt;get_thumb_path(100, 'auto');</pre><p>The last parameter allows you to generate PNG images with transparency support. By default the parameter value is TRUE and the method generates a JPEG image. Pass the FALSE value to the parameter to generate a PNG image.</p>
+<h3>$file-&gt;is_image()</h3>
+<p>returns TRUE is the file is an image. The function returns TRUE for files with the following extensions: jpeg, jpg, gif, png.</p>

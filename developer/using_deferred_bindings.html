@@ -1,0 +1,48 @@
+	<p>Deferred binding allows you to postpone adding or deleting record relations until the master record is saved to the database. In other words, it lets you temporarily store database information until a transaction is complete. Think of it as <em>suspended animation</em> for storing for table relationships in the database. When a deferred binding is set up, it can be either:</p>
+<ul>
+<li>commited by saving the master record; or&nbsp;</li>
+<li>cancelled which destroys the deferred data</li>
+</ul>
+<p>Take for example when a user's profile is saved. The user may have added a profile image or perhaps added some of their interests which are not stored in the user profile table. This relationship and it's relational data, the profile image file reference or the user's interests, both stored in a different table, can be postponed until the user profile is saved. If the user decides to cancel the changes, the data is then destroyed.</p>
+<p>This introduces the benefit of allowing your application to process and display data without having to commit it first. Models can behave exactly the same as if the data was actually saved, with the added bonus of the ability to revert to a previous state.</p>
+<h3>Creating Deferred Bindings</h3>
+<p>Deferred bindings rely on a session key, which acts as a transaction identifier. It controls the relationship between the master record and all the relationships that have been deferred. You can generate a session key using the <strong>uniqid()</strong> function.</p>
+<pre class="brush:php">// Generate a unique session key
+$session_key = uniqid('front_end', true);</pre><p>For example, on the Blog Post form you can add new images to a post. If you add some images and click Cancel on the Edit Post form, the images will not <br />be bound to the post record. Similarly, if you delete some images from the post and click Cancel, the images will not be removed from the post and deleted from the database.</p>
+<p>The <strong>$images</strong> field of the <strong>Blog_Post</strong> class is represented with the <strong>Db_DataCollection</strong> class and this is true about all multi-record Active Record relations.</p>
+<p>This class has two methods <strong>add()</strong> and <strong>delete()</strong> which allow to add or delete a record to or from the collection. These methods have an optional parameter, the session key. For example:</p>
+<pre class="brush:php">$session_key = 'test';
+$file = Db_File::create();
+[...]
+$file-&gt;save();
+
+$blog_post-&gt;images-&gt;add($file, $session_key);
+
+// This call adds the image to the blog post
+$blog_post-&gt;save(null, $session_key);
+
+// - OR -
+
+// This call cancels all deferred bindings and deletes the added records
+$blog_post-&gt;cancel_deferred_bindings($session_key);</pre><p>With this approach you can manage relative records on a form and then post everything to the database when user clicks the Save button.</p>
+<h3>List Related Records</h3>
+<p>You can list relations before they are saved using a method of the Db_ActiveRecord class is the <strong>list_related_records_deferred()</strong> method. It returns all records of a specific relation field whilst taking into account a specific session key:</p>
+<pre class="brush:php">$session_key = 'test';
+$file = Db_File::create();
+[...]
+$file-&gt;save();
+$blog_post-&gt;images-&gt;add($file, $session_key);
+
+// The blog post is not saved to the database yet, so the following will not return the added image:
+$images = $blog_post-&gt;images;
+
+// On the other hand, this call will return the added image:
+$images = $blog_post-&gt;list_related_records_deferred('images', $session_key);</pre><h3>Save Relations</h3>
+<p>As mentioned, deferred bindings are commited when the master record is saved. This is performed by saving the model and passing the <strong>$session_key</strong> as the second parameter:</p>
+<pre class="brush:php">$blog_post-&gt;save(null, $session_key);</pre><h3>Cancel All Changes</h3>
+<p>If you wish to cancel deferred bindings, this will destroy revert all relations and data changes made. This is performed by calling the following method:</p>
+<pre class="brush:php">$blog_post-&gt;cancel_deferred_bindings($session_key);</pre><h3>Back-end Form Usage</h3>
+<p>The Form Behavior, a controller extension which is used on all form pages in the Administration Area, automatically uses a session key. To get a current session key call <strong>$this-&gt;form_get_edit_session_key()</strong> in any controller method:</p>
+<pre class="brush:php">$session_key = $this-&gt;form_get_edit_session_key();</pre><p>The Form Behavior automatically calls <strong>save()</strong> and <strong>cancel_deferred_bindings()</strong> methods when you click <em>Save</em> or <em>Cancel</em> buttons on a form.</p>
+<p>Some type of fields, like image lists, can be handled by the form behavior automatically because it knows how to render them in the user interface. In this case you shouldn't worry about the session key.</p>
+<p>Other types of relations may require developing a custom user interface and will need to process add or delete records manually. In this case, when you add or delete relation records to the master record, you should pass a correct session key value.</p>

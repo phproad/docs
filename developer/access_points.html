@@ -1,0 +1,12 @@
+	<p>Module access points let you register a special URL which can be accessed from the public facing site. For example you might want a third party site to access data without needing a login to the Admin Area.</p>
+<p>To create a module access point, open your module info file (eg: <em>mymodule_module.php</em>) and define a method called <strong>subscribe_access_points()</strong>. The module info file is described in more detail in the article <a href="../creating_a_module/index.html">Creating a Module</a>. The <strong>subscribe_access_points()</strong> method must return an array with each index set to the URL you wish to create. Here is an example of how this might look:</p>
+<pre class="brush:php">public function subscribe_access_points()
+{
+    return array('latest_requests'=&gt;'get_latest_requests');
+}</pre><p>This code creates an access point with the URL <em>/latest_requests</em> and if your website address was http://mysite.com/ then the access point would be http://mysite.com/<em>latest_requests</em>.</p>
+<p>The next part is to define the logic called by the access point, in the above example the request will look for the <strong>find_latest_requests()</strong> method and use it. The method should be declared as public and take a single parameter which contains the URI information. For example:</p>
+<pre class="brush:php">public function get_latest_requests($params)
+{
+    echo &quot;There are no requests because I didn't look... sorry!&quot;;
+}</pre><p>The method parameter will be an array containing the URI information passed to the URL. For example if the access point was accessed by http://mysite.com/latest_requests/<em>closed</em> then the <strong>$pararms</strong> array would contain a single string called <em>closed</em>.</p>
+<p>Access points do not have any corresponding view file so any return output will need to be supplied manually by using <strong>echo()</strong> or <strong>print()</strong> functions, generally this would be used to supply some kind of basic feedback or XML data.</p>

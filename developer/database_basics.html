@@ -1,0 +1,31 @@
+	<p>In PHPR you have two different approaches to working with databases:</p>
+<ul>
+<li>Using Model classes which extend the <a href="../class_db_activerecord/index.html">Db_ActiveRecord</a> class</li>
+<li>Using direct SQL queries using the <a href="#">database_helper</a> class</li>
+</ul>
+<p>Both approaches have their merit for a given situation. Generally speaking, direct SQL will perform faster and should be used for simple tasks or tasks that cannot be achieved with the Active Record approach, such as creating database tables.</p>
+<p>Active Record is an approach that is used by the popular framework, Ruby On Rails. It allows an easy interface for performing repetitive tasks like creating, reading, updating and deleting database records. You can learn more about the <a href="http://en.wikipedia.org/wiki/Active_record_pattern" target="_blank">Active record pattern on Wikipedia</a>.</p>
+<h2>Direct SQL</h2>
+<p>You can manipulate your database by sending direct queries through the helper class, <strong>Db_Helper</strong>. This class has various methods for communicating to the database. A most common example is the <strong>scalar()</strong> method, which returns a single value:</p>
+<pre class="brush:php">// Returns the number of records in the user table
+$user_count = Db_DbHelper::scalar('select count(*) from users');</pre><p>You can find more methods for direct SQL by reading the <a href="#">database_helper</a> article.</p>
+<h2>Active Record</h2>
+<p>All model classes used for accessing the database should extend the <strong>Db_ActiveRecord</strong> class, this enables the usage of the active record pattern. You should create one model class for each database table. For example if you were building a blog module, you might use models for the blog posts and the user comments.</p>
+<p>Before we begin you should have already created a module or are working on an existing module. If you haven't created a module you can find instructions for this in the <a href="../creating_a_module/index.html">Creating a Module</a> article.</p>
+<p>Decide on a suitable model class, such as <strong>BossBlog_Post</strong>, and create a corresponding file name which would be <em>bossblog_post.php</em>. This file should be placed inside the <em>models</em> directory. Inside the file we will define the model class and the table name used:</p>
+<pre class="brush:php">&lt;?php
+class BossBlog_Post extends Db_ActiveRecord
+{
+	public $table_name = 'bossblog_posts';
+}</pre><p>Even though this code is very simple, we can now access the database table using all the methods and properties found in the <a href="../class_db_activerecord/index.html">Db_ActiveRecord</a> class. For example, to add a new blog post entry:</p>
+<pre class="brush:php">$post = BossBlog_Post::create();
+$post-&gt;title = 'Hello World!';
+$post-&gt;content = 'I am writing to you from my website...';
+$post-&gt;save();</pre><p>After you execute this code you should see a record in your database with the specified fields populated.</p>
+<p>Finding and updating records is just as simple:</p>
+<pre class="brush:php">$post = BossBlog_Post::create()-&gt;find(1);
+$post-&gt;title = 'Hi there, World!';
+$post-&gt;save();</pre><p>Here is a code example for deleting a record:</p>
+<pre class="brush:php">$post = BossBlog_Post::create()-&gt;find(1);
+$post-&gt;delete();</pre><p>You can find more details about accessing models via the <a href="../class_db_activerecord/index.html">Db_ActiveRecord</a> class located in the <a href="../class_reference/index.html">Class Reference</a> section.</p>
+<p>There are also ways you can define how fields should be displayed and validated by reading the <a href="#">column_definitions</a> and <a href="../form_field_definitions/index.html">Form Field Definitions</a> articles.</p>

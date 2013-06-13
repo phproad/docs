@@ -1,0 +1,48 @@
+	<p>This article describes the process of developing a module in it's purest form. A basic module must contain at least the module information class and should reside within the allocated <em>modules</em> directory. In addition to this, a module should include an updates directory which contains versioning information. To summarise a basic module file structure should look like this:</p>
+<ul>
+<li>bossblog
+<ul>
+<li>classes
+<ul>
+<li>bossblog_module.php</li>
+</ul>
+</li>
+<li>updates
+<ul>
+<li>version.dat</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>In this example the module name is called <em>bossblog</em>, we will continue with this example.</p>
+<h3>Module Info Class</h3>
+<p>The module info class contains details about the module, such as it's name and author. The class is clearly identified by it's class and file name suffix <em>_module</em>. As in the provided file structure, this file is named <em>bossblog_module.php </em>above.</p>
+<p>Inside the module info file should be a class declared which extends the <strong>Core_Module_Base</strong> class. For example:</p>
+<pre class="brush:php">class BossBlog_Module extends Core_Module_Base { }</pre><p>At a bare minimum, there must be only one method defined within this class called <strong>set_module_info</strong>. This method is responsible for returning the details and must return the object <strong>Core_Module_Detail</strong> which contains these details. So to complete our module, refer to this example:</p>
+<pre class="brush:php">&lt;?php
+
+class BossBlog_Module extends Core_Module_Base 
+{ 
+    protected function set_module_info()
+    {
+        return new Core_Module_Detail(
+            &quot;Boss Blog&quot;,
+            &quot;Adds a blog to your site like a BAWS!&quot;,
+            &quot;PHP Road&quot;,
+            &quot;http://phproad.com/&quot;
+        );
+    }
+}</pre><h3>Version Info File</h3>
+<p>The version info file contains update history for your module. It can be used to keep track of changes made to your module over time. The file is located within the <em>updates</em> folder and is named <em>version.dat</em>.</p>
+<p>Inside the version info class should be plain text that references each change, one per line. The first version of your module should contain just one line:</p>
+<pre class="brush:php">#1 First version</pre><p>As you improve you module, you can document improvements by simply updating the file. For example:</p>
+<pre class="brush:php">#1 First version
+#2 Added the comments table
+#3 Added images to each blog post</pre><p>This example contains three updates, with three minor version numbers signified by the first part of the line. These updates would be represented as:</p>
+<ul>
+<li>1.0.1 - First version</li>
+<li>1.0.2 - Added the comments table</li>
+<li>1.0.3 - Added images to each blog post</li>
+</ul>
+<p>Each version can have a corresponding database script allowing you to modify the database with each version. See the article <a href="../managing_table_structure/index.html">Managing Table Structure</a> for more details on how to do this.</p>

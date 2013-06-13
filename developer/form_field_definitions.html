@@ -1,0 +1,106 @@
+	<p>Form field definitions allow you to define how a field should be rendered in a form. Every column definition in&nbsp; a model can be defined and called as a chain.</p>
+<h3>Example</h3>
+<pre class="brush:php">public function define_form_fields($context = null)
+{
+	$this-&gt;add_form_field('title', 'left)-&gt;tab('Post')-&gt;comment('The post title');
+	$this-&gt;add_form_field('url_title', 'right)-&gt;tab('Post')-&gt;renderAs('custom_partial');
+	$this-&gt;add_form_field('content')-&gt;tab('Post')-&gt;renderAs(frm_html);
+}</pre><h4>Notes</h4>
+<ul>
+<li>The <strong>title</strong> field is aligned to the left, the <strong>url_title</strong> field is aligned to the right and the <strong>content</strong> field will take up the full space as default.</li>
+<li>All fields will appear in a tab named <strong>Post</strong></li>
+</ul>
+<h3>Field Alignment<strong></strong></h3>
+<p><strong>side()</strong> sets the side of the form the field should be placed (left, right, full)</p>
+<h3>Using Tabs</h3>
+<p>enables the use of tabs in the form and specifies which tab the field should belong to</p>
+<h3>Adding Comments<strong></strong></h3>
+<p><strong>comment()</strong> places a comment above or below the field</p>
+<h3>Disabling Fields<strong><br /></strong></h3>
+<p><strong>disabled()</strong> will disable the form field</p>
+<h2>Calculated Definitions</h2>
+<p>In most cases you won't need to call the <strong>renderAs()</strong> method because by default render modes are guessed automatically based on the model column definition and/or relation types.</p>
+<ul>
+<li><strong>tinyint</strong> columns are rendered as checkboxes (frm_checkbox).</li>
+<li><strong>float</strong>, <strong>numeric</strong> and <strong>varchar</strong> columns are rendered as text input elements (frm_text).</li>
+<li><strong>textarea</strong> columns are rendered as textarea elements (frm_textarea).</li>
+<li><strong>datetime</strong> columns are rendered as the date/time picker control (frm_datetime).</li>
+<li><strong>db_date</strong> columns are rendered as the date picker control (frm_date).</li>
+<li><strong>belongs_to</strong> relations are rendered as drop-down fields (frm_dropdown).</li>
+<li><strong>has_and_belongs_to_many</strong> relations are rendered as checkbox lists (frm_checkboxlist).</li>
+</ul>
+<h2>Available Definitions</h2>
+<p>Although automatic definitions are useful, however you can always override the default with the <strong>renderAs()</strong> method. The following modes are supported:</p>
+<h3>frm_text</h3>
+<p>Creates a standard text input element.</p>
+<pre class="brush:php">$this-&gt;add_form_field('email')-&gt;renderAs(frm_text);</pre><h3>frm_password</h3>
+<p>Creates a standard password input element.</p>
+<pre class="brush:php">$this-&gt;add_form_field('password')-&gt;renderAs(frm_password);</pre><h3>frm_textarea</h3>
+<p>Creates a multiple line textarea element.</p>
+<pre class="brush:php">$this-&gt;add_form_field('description')-&gt;renderAs(frm_textarea)-&gt;size('small');</pre><h3>frm_dropdown</h3>
+<p>Creates a drop-down element.</p>
+<pre class="brush:php">$this-&gt;add_form_field('status')-&gt;renderAs(frm_dropdown)-&gt;emptyOption(&quot;&lt;select status&gt;&quot;);</pre><h3>frm_autocomplete</h3>
+<p>Creates a field that can be automatically completed.&nbsp;</p>
+<p><em>(This feature is not complete)</em></p>
+<h3>frm_radio</h3>
+<p>Creates a set of radio buttons.</p>
+<pre class="brush:php">$this-&gt;add_form_field('group')-&gt;renderAs(frm_radio);</pre><h3>frm_checkbox</h3>
+<p>Creates a single checkbox.</p>
+<pre class="brush:php">$this-&gt;add_form_field('allow_edit')-&gt;renderAs(frm_checkbox);</pre><h3>frm_checkboxlist</h3>
+<p>Creates a set of checkboxes.</p>
+<p>Relational usage</p>
+<pre class="brush:php">$this-&gt;add_form_field('permissions')-&gt;renderAs(frm_checkboxlist);</pre><p>$this-&gt;define_multi_relation_column('rights', 'rights', 'Rights', '@name')</p>
+<p>$this-&gt;add_form_field('rights')-&gt;renderAs(frm_checkboxlist);</p>
+<p>Relational usage with description</p>
+<p>$this-&gt;add_form_field('rights')-&gt;renderAs(frm_checkboxlist)-&gt;referenceDescriptionField('@description');</p>
+<h3>frm_html</h3>
+<p>Creates a rich text editor (WYSIWYG)</p>
+<pre class="brush:php">$this-&gt;add_form_field('content')-&gt;renderAs(frm_html)-&gt;size('giant');</pre><h3>frm_code_editor</h3>
+<p>Creates a code editor.</p>
+<pre class="brush:php">$this-&gt;add_form_field('code')
+	-&gt;size('giant')
+	-&gt;cssClasses('code')
+	-&gt;renderAs(frm_code_editor)
+	-&gt;language('php')
+	-&gt;saveCallback('save_code');</pre><h3>frm_datetime</h3>
+<p>Creates a date / time field.</p>
+<pre class="brush:php">$this-&gt;add_form_field('published_at')-&gt;renderAs(frm_datetime);</pre><h3>frm_date</h3>
+<p>Creates a date field.</p>
+<pre class="brush:php">$this-&gt;add_form_field('published_at')-&gt;renderAs(frm_date);</pre><h3>frm_time</h3>
+<p>Creates a time field.</p>
+<p><em>(This feature is not complete)</em></p>
+<h3>frm_onoffswitcher</h3>
+<p>Creates a toggle switch element. This is basically a graphical checkbox with ON and OFF states.</p>
+<pre class="brush:php">$this-&gt;add_form_field('test_mode')-&gt;renderAs(frm_onoffswitcher);</pre><h3>frm_record_finder</h3>
+<p>Creates a record finder that let's you easily select a relationship using a popup.</p>
+<pre class="brush:php">$this-&gt;add_form_field('customer'')-&gt;
+    renderAs(frm_record_finder, array(
+        'sorting'=&gt;'first_name, last_name, email',
+        'list_columns'=&gt;'first_name,last_name,email,guest,created_at',
+        'search_prompt'=&gt;'Find customer by name or email',
+        'form_title'=&gt;'Find Customer',
+        'display_name_field'=&gt;'full_name',
+        'display_description_field'=&gt;'email',
+        'prompt'=&gt;'Click the Find button to find a customer'));</pre><h3>frm_file_attachments</h3>
+<p>Creates a file attachment widget. You should use <strong>renderFileAs()</strong> to specify how the files should be displayed, for example, a thumbnail, or a list of images or a list of files.</p>
+<pre class="brush:php">$this-&gt;add_form_field('files'')-&gt;renderAs(frm_file_attachments)
+    -&gt;renderFilesAs('file_list')
+    -&gt;addDocumentLabel('Add file attachment(s)')
+    -&gt;noAttachmentsLabel('There are no files uploaded')
+    -&gt;fileDownloadBaseUrl(url('admin/files/get/'));</pre><h3>frm_widget</h3>
+<p>Creates a special widget control.</p>
+<pre class="brush:php">$this-&gt;add_form_field('credit_table')-&gt;renderAs(frm_widget, array(
+    'class'=&gt;'Db_Grid_Widget', 
+    'custom_model_class'=&gt;'Payment_Config',
+    'sortable'=&gt;true,
+    'scrollable'=&gt;true,
+    'enable_csv_operations'=&gt;false,
+    'scrollable_viewport_class'=&gt;'height-200',
+    'columns'=&gt;array(
+        'credit'=&gt;array('title'=&gt;'Credit Amount', 'type'=&gt;'text'),
+        'cost'=&gt;array('title'=&gt;'Price', 'type'=&gt;'text', 'align'=&gt;'right')
+    )
+));</pre><h2>Custom Definitions</h2>
+<p>Creates a custom field rendered with defined partial contents.</p>
+<pre class="brush:php"></pre><p>You can also override a specific column by creating a partial beginning with form_field_, for example, if the column name was <strong>title</strong> the partial file would be named <strong>form_field_title.htm</strong> and the contents could look like this:</p>
+<pre class="brush:php"></pre>

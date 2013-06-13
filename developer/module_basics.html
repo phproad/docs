@@ -1,0 +1,40 @@
+<p>PHPR uses a modular approach to development. This means all the features, such as the CMS and Admin functions are provided by different modules. By developing your own module you can perform various tasks, such as:</p>
+<ul>
+<li>Adding new features to your site</li>
+<li>Extending exisiting objects, like users or blog posts</li>
+<li>Extending the Admin Area interface by adding new menu items and forms</li>
+</ul>
+<h2>Structure of a Module</h2>
+<p>If you look at a module folder on the file system located under the modules directory, it will contain the following subdirectories:</p>
+<ul>
+<li>assets</li>
+<li>classes</li>
+<li>controllers</li>
+<li>models</li>
+<li>updates</li>
+</ul>
+<p>The <em>assets</em> directory is an optional directory and will contain files relating to the graphical layer, such as CSS, images and Javascript files needed for your module in the Admin Area. You can create any type of file and folder structure in this directory.<br /><br />The <em>classses</em> directory should contain library items used by the module. It also must contain a module information declaration class file that ends with the _module suffix, this is used to identify the module. In the purest form, a module only requires a classes and updates folder to work correctly. You can learn more about this by reading the article <a href="../creating_a_module/index.html">Creating a Module</a>.<br /><br />The <em>controllers</em> directory can contain controller and view files which are used for building Admin Area pages specific to the module, such as a Settings page. If you do not plan on adding any new pages to the Admin Area then you do not need to create this directory. For more information on how to customise the Admin Area see the article <a href="#">building_admin_pages</a>.<br /><br />The <em>models</em> directory is used for storing model classes. Model classes are used for interacting with the database by storing and retreiving information. You can learn more about model classes by reading the article <a href="../database_basics/index.html">Database Basics</a>.<br /><br />The <em>updates</em> directory will contain a module&rsquo;s versioning information, called version.dat, and the SQL scripts required for establishing the database tables needed for the module. This subdirectory is required even if the module does not use the database.</p>
+<h2>Naming Standard</h2>
+<p>Module directories and their files must follow a specific naming standard. This allows PHPR to automatically load classes without the need for <strong>require()</strong> or <strong>include()</strong> functions.</p>
+<h3>Module Directory</h3>
+<p>The top level module folder cannot contain spaces, minus symbols or underscores. The directory must also be all lower case and not begin with a digit. Some examples of incorrect module directory names:</p>
+<ul>
+<li>BossBlog</li>
+<li>boss_blog</li>
+<li>superSHOP</li>
+<li>4chan</li>
+</ul>
+<p>These are examples of correct module names:</p>
+<ul>
+<li>bossblog</li>
+<li>supershop</li>
+</ul>
+<h3>Class Names</h3>
+<p>Every class name within a module should start with the module's name followed by an underscore. The file name should also be lower case however, you are allowed to use uppercase lettering in the class names. Some examples of correct class names:</p>
+<ul>
+<li>BossBlog_ClassName</li>
+<li>BossBlog_Classname</li>
+<li>BossBlog_Class_Name</li>
+</ul>
+<h3>Database Table Names</h3>
+<p>Database table names follow the same convention as class file names. It should be prefixed with the module name followed by an underscore. When referring to model records you should use the plural representation, for example, <strong>blog_posts</strong> is preferrable to <strong>blog_post</strong>.</p>

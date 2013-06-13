@@ -1,0 +1,51 @@
+	<p>Database tables and records can be managed easily using a built-in feature which allows modules to create, update or delete database objects. These updates are applied along with the corresponding version information found in a module version info file (<em>version.dat</em>). You can read more about version information in the <a href="../creating_a_module/index.html">Creating a Module</a> article.</p>
+<p>When PHPR reads the version info file it will execute any logic found in a file name that matches the version number inside the <em>updates</em> directory. This is optional, if no corresponding file is found, PHPR will move to the next file until it reaches the most recent version.</p>
+<p>For example the module updates directory may look like this:</p>
+<ul>
+<li>updates
+<ul>
+<li>1.sql</li>
+<li>2.php</li>
+<li>version.dat</li>
+</ul>
+</li>
+</ul>
+<p>The contents of <em>version.dat</em>:</p>
+<pre class="brush:php">#1 First version
+#2 Removes posts from Charles</pre><p>The execution order is determined by the version number, meaning the first version will execute the file named <em>1.sql</em>, then the second version will execute the file named <em>2.php</em> and so on. As you can see above, update files can have the <em>php</em> or <em>sql</em> extension, this gives you the option of explicit SQL or using PHP logic to update the database.</p>
+<p>If PHPR finds both extensions for the same version number (eg: <em>2.php</em> and <em>2.sql</em>) it will execute the SQL first, then the PHP file execute second.</p>
+<h3>SQL Update Files</h3>
+<p>Inside files with the <em>sql</em> extension, you can you as many SQL queries as you need. The queries must be separated with a <em>semicolon</em> and a <em>newline</em> character.</p>
+<p>As an example of an SQL file, let's take a look at the contents of <em>1.sql</em> from the above file structure:</p>
+<pre class="brush:sql">CREATE TABLE `bossblog_posts` (
+  `id` int(11) NOT NULL auto_increment,
+  `author_id` int(11) default NULL,
+  `title` varchar(255) default NULL,
+  `url_title` varchar(255) default NULL,
+  `description` text,
+  `content` text,
+  PRIMARY KEY  (`id`),
+  KEY `author_id` (`author_id`),
+  KEY `url_title` (`url_title`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;</pre><p>This example will create a table for storing blog posts, it is the most common way to update and initialize the database.</p>
+<h3>PHP Update Files</h3>
+<p>Update files with the <em>php</em> extension can contain any PHP code. They are useful when you have to perform an update which is not possible using a standard SQL query. You may need to check a condition, like if a user exists, before running the update. </p>
+<p>An example can be found in the contents of <em>2.php</em> following on from the above example:</p>
+<pre class="brush:php">// Find user with first name: Charles
+$user = User::create()-&gt;where('first_name=?', 'Charles')-&gt;find();
+
+// Unable to find Charles, abort
+if (!$user)
+	return;
+
+// Find posts belonging to Charles
+$posts = BossBlog_Post::create()-&gt;where('author_id=?', $user-&gt;id)-&gt;find_all();
+
+foreach ($posts as $post)
+{
+	// Delete each post
+	$post-&gt;delete();
+}</pre><p>This update script looks for a user with the first name "Charlie" and removes any blog posts that belong to him.</p>
+<h2>Naming Standard</h2>
+<p>As described in the <a href="../module_basics/index.html">Module Basics</a> article, every table in the database should follow a naming convention where each table name has a prefix of the module name. For example the blog posts table has the prefix <strong>bossblog_</strong> because it belongs to the <em>bossblog</em> module.</p>
+<p>In addition to this you should always use auto-increment identifiers with the name <strong>id</strong> for your tables.</p>

@@ -1,0 +1,30 @@
+	<p>A data feed allows you to combine multiple model classes into a single data collection. This is very useful for creating feeds and streams of data while also supporting the use of pagination. It works by adding model objects in a prepared state, before the <strong>find()</strong> or <strong>find_all()</strong> methods are called, which are then combined to make a collection that behaves as a single model. The Db_DataFeed class mimics the Db_ActiveRecord class and supports <strong>limit()</strong> and <strong>paginate()</strong>.</p>
+<p>A simple example of creating a feed is below:</p>
+<pre class="brush:php">$feed = Db_DataFeed::create();
+$feed-&gt;add(User::create());
+$feed-&gt;add(Blog_Comment::create());
+$feed-&gt;add(Blog_Post::create()-&gt;where('category_id=7'));
+$feed_items = $feed-&gt;limit(10)-&gt;find_all();</pre><p>This example will combine users, blog posts and blog comments in to a single collection that only contains the first 10 results. By default the feed is ordered by the <strong>updated_at</strong> and <strong>created_at</strong> fields.</p>
+<h3>Processing Results</h3>
+<p>The <strong>find_all()</strong> method will return a Db_DataCollection object that contains the collection of objects. You can then loop these results and identify it's origin by accessing the <strong>class_name</strong> property. For example:</p>
+<pre class="brush:php">foreach ($feed_items as $item)
+{
+	if ($item-&gt;class_name == 'Blog_Post')
+		echo &quot;New Blog Post: &quot;.$item-&gt;title;
+	else if ($item-&gt;class_name == 'Blog_Comment')
+		echo &quot;New Blog Post Comment: &quot;.$item-&gt;content;
+	else if ($item-&gt;class_name == 'User')
+		echo &quot;New User: &quot;.$item-&gt;full_name;	
+}</pre><h3>Tagging Results</h3>
+<p>In some cases you may wish to use the same model with a different SQL filter whilst retaining the ability to identify the difference when processing the results. This can be achieved by passing a unique tag name as the second parameter of the <strong>add()</strong> method. The resulting tag name is then available as the <strong>context_name</strong> property. For example:</p>
+<pre class="brush:php">$feed = Db_DataFeed::create();
+$feed-&gt;add(Blog_Post::create()-&gt;where('category_id=2'), 'category_two');
+$feed-&gt;add(Blog_Post::create()-&gt;where('category_id=3'), 'category_three');
+
+foreach ($feed-&gt;find_all() as $item)
+{
+	if ($item-&gt;context_name == 'category_two')
+		echo &quot;Category 2 Blog Post: &quot;.$item-&gt;title;
+	else if ($item-&gt;context_name == 'category_three')
+		echo &quot;Category 3 Blog Post: &quot;.$item-&gt;title;
+}</pre>
