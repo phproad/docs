@@ -1,0 +1,13 @@
+<h2>Content Blocks</h2>
+<p>Content blocks let site owners easily manage content throughout their site, without the need for any special programming skills. The developer can allocate these spaces and comfortably allow a non-technical person to manage the content without fear of damaging the site's integrity.</p>
+<p>Content blocks let you keep HTML and page content separate from each other. You can add multiple content blocks to a page and edit them separately as well as control staff permissions. In some circumstances you may not want staff to be able to edit the page&rsquo;s code potentially causing damage. By only allowing access to content blocks you can therefore protect the page from any problems.</p>
+<h3>Page Content Blocks</h3>
+<p>Editable content blocks allow you to separate your pages HTML code and pages content. You may add any number of content blocks on a page and then edit them separately from the page code, in WYSIWYG or text mode. The benefit of this approach is that page content can be managed by not-technical people. It protects pages from being corrupted by accident and makes page editing simpler.</p>
+<pre class="brush:html">&lt;?= content_block('content_block', 'Page content') ?&gt;</pre><h3>Plain Text Content Blocks</h3>
+<p>Similar to Regular Content Blocks except they do not provide a WYSIWYG editor.</p>
+<pre class="brush:html"></pre><h3>Global Content Blocks</h3>
+<p>Global content blocks are similar to the regular content blocks, but they can be used not only on pages, but also in layouts and partials. Global content blocks are also shared across themes. You can define a single content block and use it in different themes. Its content will be the same in all themes.<br /><br />You can manage global content blocks on the CMS/Content page. Similarly to partials, global content blocks have name, code and content. The code field is needed for referring to global content blocks in pages, layout and partial code. To output a global content block on a page, layout or partial use the global_content_block() function. The block code should be specified in the function parameter:</p>
+<pre class="brush:html">&lt;?= global_content_block('global_content_block', 'Global content') ?&gt;</pre><h3>Templated Content Blocks</h3>
+<p>These allow you to inject content into a dedicated area within a page template, for example a side menu or a banner space. This is a planned feature and is not yet available.</p>
+<pre class="brush:html"></pre><h2>Language Strings</h2>
+<p>Language strings are the single line equivilent of content blocks, except more reusable.</p>
