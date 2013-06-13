@@ -1,0 +1,116 @@
+<p>In this example we will replace the standard link in a list with a popup.</p>
+<p>Add to the controller head</p>
+<pre class="brush:php">// This property must be defined in the controller class
+public $list_record_onclick = null;
+
+public function __construct()
+{
+    parent::__construct();	
+
+	// When a list item record is clicked, show the popup
+	$this-&gt;list_record_onclick = &quot;new PopupForm('index_onshow_manage_string_form', { ajaxFields: {string_id: '%s' } }); return false;&quot;;
+}</pre><p>Create a new method to render the popup form</p>
+<pre class="brush:php">protected function index_onshow_manage_string_form()
+{
+	try
+	{
+		$model_id = post('string_id', null);
+		
+		$this-&gt;reset_form_edit_session_key();
+
+		$model = Cms_String::create();
+		if ($model_id)
+			$model = $model-&gt;find($model_id);
+
+		$model-&gt;init_form_fields();
+		
+		$this-&gt;view_data['model'] = $model;
+		$this-&gt;view_data['new_record_flag'] = !($model_id);
+	} 
+	catch (Exception $ex)
+	{
+		$this-&gt;handle_page_error($ex);
+	}
+
+	$this-&gt;display_partial('manage_string_form');
+}</pre><p>Create a partial to house the popup form content, named <strong>_manage_string_form.htm</strong></p>
+<pre class="brush:php">&lt;div&gt;
+	&lt;h2&gt;Update String&lt;/h2&gt;
+		&lt;div class=&quot;form-400&quot;&gt;
+		&lt;?=Phpr_Form::open_tag() ?&gt;
+			&lt;? if (!isset($fatal_error)): ?&gt;
+				&lt;div class=&quot;content&quot;&gt;
+					&lt;? $this-&gt;form_render($model) ?&gt;
+					&lt;?=form_hidden('string_id', $model-&gt;id)?&gt;
+				&lt;/div&gt;
+				&lt;div class=&quot;footer&quot;&gt;
+					&lt;?=admin_ajax_button('Save', 'index_onsave_string', array('class'=&gt;'btn btn-success'), &quot;
+							loadIndicator: {injectInElement: true},
+							onComplete: listReload,
+							onSuccess: cancelPopup&quot;) ?&gt;
+					
+					&lt;?=admin_button('Cancel', array('onclick'=&gt;&quot;cancelPopup(); return false&quot;)) ?&gt;
+
+					&lt;?=(!$new_record_flag) 
+						? admin_ajax_button('Delete', 'index_ondelete_string', array('class'=&gt;&quot;btn btn-danger pull-right&quot;), &quot;
+							confirm: 'Do you really want to delete this string?',
+							onComplete: listReload,
+							loadIndicator: {injectInElement: true},
+							onSuccess: cancelPopup&quot;) 
+						: '' ?&gt;
+				&lt;/div&gt;
+			&lt;? else: ?&gt;
+				&lt;div class=&quot;content&quot;&gt;
+					&lt;div class=&quot;form-flash&quot;&gt;&lt;?=flash()?&gt;&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;div class=&quot;footer&quot;&gt;
+					&lt;?=admin_button('Cancel', array('onclick'=&gt;'return cancelPopup();&quot;')) ?&gt;
+				&lt;/div&gt;
+			&lt;? endif ?&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</pre><p>Create a new method to save the model after clicking Save on the popup</p>
+<pre class="brush:php">protected function index_onsave_string()
+{
+	try
+	{
+		$string_id = post('string_id');
+		
+		if (!$string_id)
+			throw new Phpr_ApplicationException(&quot;Please select a string&quot;);
+			
+		$model = Cms_String::create()-&gt;find($string_id);
+		if (!$model)
+			throw new Phpr_ApplicationException(&quot;String not found&quot;);
+
+		$model-&gt;save(post('Cms_String'));
+
+		Phpr::$session-&gt;flash['success'] = sprintf('String %s updated successfully', h($model-&gt;code));
+	}
+	catch (Exception $ex)
+	{
+		Phpr::$response-&gt;ajax_report_exception($ex, true, true);
+	}
+}</pre><p>Create a new method to delete the model after click Delete on the popup</p>
+<pre class="brush:php">protected function index_ondelete_string()
+{
+	try
+	{
+		$string_id = post('string_id');
+		
+		if (!$string_id)
+			throw new Phpr_ApplicationException(&quot;Please select a string&quot;);
+			
+		$model = Cms_String::create()-&gt;find($string_id);
+		if (!$model)
+			throw new Phpr_ApplicationException(&quot;String not found&quot;);
+
+		$model-&gt;delete();
+
+		Phpr::$session-&gt;flash['success'] = sprintf('String %s has been deleted', h($model-&gt;code));
+	}
+	catch (Exception $ex)
+	{
+		Phpr::$response-&gt;ajax_report_exception($ex, true, true);
+	}
+}</pre>

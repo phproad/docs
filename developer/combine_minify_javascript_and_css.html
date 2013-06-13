@@ -1,0 +1,34 @@
+	<p>The front end page controller has two methods which let you combine, compress and minify JavaScript and CSS assets. With these methods you can reduce the number of external requests on a page and improve load time by compressing and caching the assets files. PHPR will automatically minify and compress asset files using GZIP.</p>
+<p>These methods allow you to include both local and remote files and the following <strong>$options</strong> are available:</p>
+<ul>
+<li><strong>reset_cache</strong> - force reset the output cache. PHPR will cache combined files on the server. By default it updates the cache as soon as any of the cached files is changed.&nbsp;</li>
+<li><strong>skip_cache</strong> - do not cache the combined files.</li>
+<li><strong>src_mode</strong> - do not minify the combined files. Retains all comments and formatting.</li>
+</ul>
+<h3>$this-&gt;js_include($assets, $options)</h3>
+<p>Combines multiple JavaScript files into a single script.</p>
+<pre class="brush:php">&lt;?= $this-&gt;js_include(array(
+	'jquery',
+	'core_jquery',
+	'frontend_core',
+	'@/assets/javascript/app.js',
+)) ?&gt;</pre><h3>$this-&gt;css_include($assets, $options)</h3>
+<p>Combines multiple CSS files into a single stylesheet. PHPR will automatically process relative URLs in CSS combined files</p>
+<pre class="brush:php">&lt;?= $this-&gt;css_include(array(
+	'@/assets/css/font/stylesheet.css',
+	'@/assets/css/ui.css',
+	'@/assets/css/app.css',
+	'@/assets/css/templates.css',
+	'@/assets/css/pages.css',
+), array(
+	'src_mode'=&gt;true
+)) ?&gt;</pre><h2>Minimum Requirements</h2>
+<p>In order for the PHPR front end JavaScript framework to function correctly, you will need to include three JavaScript files to all your pages -- the jQuery library, the framework core and front-end core library. To include the required libraries, simply call the js_include() method with the aliases <strong>jquery</strong>, <strong>core_jquery</strong>, and <strong>frontend_core</strong>:</p>
+<pre class="brush:php">&lt;?=$this-&gt;js_include(array(
+	'jquery',
+	'core_jquery',
+	'frontend_core'
+)) ?&gt;</pre><p>PHPR also has a CSS file for styling standard controls used, such as the AJAX loading indicator. You can include it with the core_styles alias in the css_include() method:</p>
+<pre class="brush:php">&lt;?= $this-&gt;css_combine(array(
+	'core_styles'
+)) ?&gt;</pre>

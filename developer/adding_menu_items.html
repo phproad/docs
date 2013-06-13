@@ -1,0 +1,27 @@
+	<p>Modules are responsible for adding menu items to the administration area, this is achieved by overriding the method <strong>build_admin_menu()</strong> in the module information file <strong>mymodule_module.php</strong>.</p>
+<p>This method takes a parameter which is used to add to the menu collection:</p>
+<pre class="brush:php">public function build_admin_menu($menu) { }</pre><p>The first parameter in this method <strong>$menu</strong> is an object that represents the top level of the menu. You can&nbsp;<strong>add()</strong> new menu items to this top level which returns another object which represents the sub menu items. From here you can <strong>add_child()</strong> menu items to the sub menu.</p>
+<h3>Adding top level and sub menu items</h3>
+<p>Assuming you have already <a href="../creating_a_module/index.html">set up a basic module</a>, you should update or add the module information file with this content:</p>
+<pre class="brush:php">&lt;?php
+
+class Blog_Module extends Core_Module_Base
+{
+
+	protected function set_module_info()
+	{
+		return new Core_Module_Detail(
+			&quot;Blog&quot;,
+			&quot;Blog Module&quot;,
+			&quot;PHPRoad&quot;,
+			&quot;http://phproad.com/&quot;
+		);
+	}
+
+	public function build_admin_menu($menu)
+	{
+		$top = $menu-&gt;add('blog', 'Blog', 'blog/posts')-&gt;icon('microphone');
+		$top-&gt;add_child('posts', 'Posts', 'blog/posts', 100);
+		$top-&gt;add_child('categories', 'Categories', 'blog/categories', 100);
+	}
+}</pre><p>The code above creates a top level menu item called <em>Blog</em> accompanied by two sub menu items, <em>Posts</em> and <em>Categories</em>.</p>
