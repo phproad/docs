@@ -2,11 +2,11 @@
 
 @font-face {
     font-family: 'PTSans';
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS76F-webfont.eot');
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS76F-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS76F-webfont.woff') format('woff'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS76F-webfont.ttf') format('truetype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS76F-webfont.svg#PTSansBoldItalic') format('svg');
+    src: url('/docs/assets/fonts/pt_sans/PTS76F-webfont.eot');
+    src: url('/docs/assets/fonts/pt_sans/PTS76F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/docs/assets/fonts/pt_sans/PTS76F-webfont.woff') format('woff'),
+         url('/docs/assets/fonts/pt_sans/PTS76F-webfont.ttf') format('truetype'),
+         url('/docs/assets/fonts/pt_sans/PTS76F-webfont.svg#PTSansBoldItalic') format('svg');
     font-weight: bold;
     font-style: italic;
 
@@ -14,31 +14,31 @@
 
 @font-face {
     font-family: 'PTSans';
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS75F-webfont.eot');
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS75F-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS75F-webfont.woff') format('woff'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS75F-webfont.ttf') format('truetype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS75F-webfont.svg#PTSansBold') format('svg');
+    src: url('/docs/assets/fonts/pt_sans/PTS75F-webfont.eot');
+    src: url('/docs/assets/fonts/pt_sans/PTS75F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/docs/assets/fonts/pt_sans/PTS75F-webfont.woff') format('woff'),
+         url('/docs/assets/fonts/pt_sans/PTS75F-webfont.ttf') format('truetype'),
+         url('/docs/assets/fonts/pt_sans/PTS75F-webfont.svg#PTSansBold') format('svg');
     font-weight: bold;
 }
 
 @font-face {
     font-family: 'PTSans';
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS56F-webfont.eot');
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS56F-webfont.woff') format('woff'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS56F-webfont.ttf') format('truetype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS56F-webfont.svg#PTSansItalic') format('svg');
+    src: url('/docs/assets/fonts/pt_sans/PTS56F-webfont.eot');
+    src: url('/docs/assets/fonts/pt_sans/PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/docs/assets/fonts/pt_sans/PTS56F-webfont.woff') format('woff'),
+         url('/docs/assets/fonts/pt_sans/PTS56F-webfont.ttf') format('truetype'),
+         url('/docs/assets/fonts/pt_sans/PTS56F-webfont.svg#PTSansItalic') format('svg');
     font-style: italic;
 }
 
 @font-face {
     font-family: 'PTSans';
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS55F-webfont.eot');
-    src: url('/phpr-docs-temp/assets/fonts/pt_sans/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS55F-webfont.woff') format('woff'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS55F-webfont.ttf') format('truetype'),
-         url('/phpr-docs-temp/assets/fonts/pt_sans/PTS55F-webfont.svg#PTSansRegular') format('svg');
+    src: url('/docs/assets/fonts/pt_sans/PTS55F-webfont.eot');
+    src: url('/docs/assets/fonts/pt_sans/PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/docs/assets/fonts/pt_sans/PTS55F-webfont.woff') format('woff'),
+         url('/docs/assets/fonts/pt_sans/PTS55F-webfont.ttf') format('truetype'),
+         url('/docs/assets/fonts/pt_sans/PTS55F-webfont.svg#PTSansRegular') format('svg');
 }
 
 
@@ -948,7 +948,7 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .google_map * { -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; }
 .google_map img { max-width: none; height: auto; }
 
-ul.orbit-bullets li { background-image: url('/phpr-docs-temp/assets/utilsity/orbit-bullets.png?1351244579'); }
+ul.orbit-bullets li { background-image: url('/docs/assets/utilsity/orbit-bullets.png?1351244579'); }
 
 a img { border: none; }
 
@@ -993,7 +993,7 @@ table .align_right { text-align: right !important; }
 /* --------------------------------------------------
 :: Icons
 ----------------------------------------------------- */
-@font-face { font-family: 'FontAwesome'; src: url("/phpr-docs-temp/assets/fonts/font_awesome/fontawesome-webfont.eot"); src: url("/phpr-docs-temp/assets/fonts/font_awesome/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("/phpr-docs-temp/assets/fonts/font_awesome/fontawesome-webfont.woff") format("woff"), url("/phpr-docs-temp/assets/fonts/font_awesome/fontawesome-webfont.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'FontAwesome'; src: url("/docs/assets/fonts/font_awesome/fontawesome-webfont.eot"); src: url("/docs/assets/fonts/font_awesome/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("/docs/assets/fonts/font_awesome/fontawesome-webfont.woff") format("woff"), url("/docs/assets/fonts/font_awesome/fontawesome-webfont.ttf") format("truetype"); font-weight: normal; font-style: normal; }
 
 /*  Font Awesome styles ------------------------------------------------------- */
 /* includes sprites.less reset */
@@ -1768,7 +1768,7 @@ dl.tabs.bottom dd.active { border-bottom: 3px solid #0088cc; margin-top: -1px; b
 .popup.reveal-modal { display: block; }
 
 .reveal-modal { -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
-.reveal-modal .reveal-loading { background: url('/phpr-docs-temp/assets/utilsity/loading.gif?1349411935') center center no-repeat; height: 300px; }
+.reveal-modal .reveal-loading { background: url('/docs/assets/utilsity/loading.gif?1349411935') center center no-repeat; height: 300px; }
 .reveal-modal form { margin-bottom: 0; }
 
 /* --------------------------------------------------
@@ -2073,7 +2073,7 @@ body #mainnav a { font-size: 13px; }
 body #mainnav .name h1 a { font-weight: bold; font-style: italic; font-size: 27px !important; }
 body #content { padding-top: 20px; }
 body #footer .row { border-top: 1px dashed #dddddd; padding-top: 1em; margin-top: 1em; }
-body #footer .row .symbol { text-indent: -119988px; overflow: hidden; text-align: left; background: url("/phpr-docs-temp/assets/images/global/symbol.png"); height: 25px; width: 52px; }
+body #footer .row .symbol { text-indent: -119988px; overflow: hidden; text-align: left; background: url("/docs/assets/images/global/symbol.png"); height: 25px; width: 52px; }
 
 /* --------------------------------------------------
 :: Docs
